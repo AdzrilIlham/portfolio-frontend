@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["*"],
+      "@lib/*": ["lib/*"]
     },
     "target": "es5",
     "module": "esnext",
@@ -19,11 +20,6 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": [
-    "src"
-, "src/FocusCardsDemo.js"  ],
-  "exclude": [
-    "node_modules",
-    "build"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules", "build"]
 }

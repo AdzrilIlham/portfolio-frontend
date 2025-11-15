@@ -4,9 +4,6 @@ import { cn } from "./lib/utils";
 function SkillList({ skills }) {
   return (
     <div className={cn("w-full p-4 md:p-10")}>
-      <h2 className="text-3xl font-bold text-center my-8 text-white">
-        Skill Saya
-      </h2>
 
       {skills.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">

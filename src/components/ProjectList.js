@@ -1,43 +1,42 @@
 import React from "react";
+import { DirectionAwareHover } from "./ui/uiProject";
 import { cn } from "./lib/utils";
-import { FocusCards } from "./ui/focus-cards";
 
 function ProjectList({ projects }) {
   return (
     <div className={cn("w-full p-4 md:p-10")}>
-      <h2 className="text-3xl font-bold text-center my-8 text-white">
-        Proyek Saya
-      </h2>
-
       {projects.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-auto">
+
           {projects.map((project) => (
             <a
               key={project.id}
-              href={project.link} // <-- INI DIAMBIL DARI DATABASE
+              href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="block"
+              className="block w-full"
             >
-              <FocusCards className="h-72 cursor-pointer">
-                <img
-                  src={`http://127.0.0.1:8000/storage/${project.image}`}
-                  alt={project.title}
-                  className="w-full h-40 object-cover rounded-lg mb-4"
-                />
+              <DirectionAwareHover
+                imageUrl={`http://127.0.0.1:8000/storage/${project.image}`}
+                className="w-full overflow-hidden rounded-xl cursor-pointer"
+                imageClassName="object-cover w-full h-auto"
+              >
 
-                <h3 className="text-xl font-semibold">{project.title}</h3>
 
-                <p className="text-sm text-gray-300 line-clamp-3">
-                  {project.description}
-                </p>
+                <div className="flex flex-col space-y-1">
+                  <h3 className="text-xl font-semibold">{project.title}</h3>
+                  <p className="text-sm text-gray-200 line-clamp-2">
+                    {project.description}
+                  </p>
+                  <span className="text-blue-400 mt-2 inline-block">
+                    Kunjungi Project →
+                  </span>
+                </div>
 
-                <span className="text-blue-400 mt-2 inline-block">
-                  Kunjungi Project →
-                </span>
-              </FocusCards>
+              </DirectionAwareHover>
             </a>
           ))}
+
         </div>
       ) : (
         <p className="text-center text-gray-400">Memuat proyek...</p>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import FloatingNav from "./components/ui/FloatingNav";
 import ProjectList from "./components/ProjectList";
 import SkillList from "./components/SkillList";
-import { LampDemo } from "./components/ui/lamp";
+import {LampDemo} from "./components/ui/lamp";
 
 function App() {
 
@@ -16,16 +16,31 @@ function App() {
   const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/projects")
-      .then((res) => res.json())
-      .then((data) => setProjects(data.data))
-      .catch((err) => console.error("Error fetching projects:", err));
+    // Projects
+    fetch('http://127.0.0.1:8000/api/portfolio/projects')
+        .then((res) => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+        })
+        .then((data) => {
+            console.log('Projects response:', data); // Debug
+            // Cek apakah data punya property 'data' atau langsung array
+            setProjects(Array.isArray(data) ? data : data.data || []);
+        })
+        .catch((err) => console.error("Error fetching projects:", err));
 
-    fetch("http://127.0.0.1:8000/api/skills")
-      .then((res) => res.json())
-      .then((data) => setSkills(data.data))
-      .catch((err) => console.error("Error fetching skills:", err));
-  }, []);
+    // Skills
+    fetch('http://127.0.0.1:8000/api/portfolio/skills')
+        .then((res) => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+        })
+        .then((data) => {
+            console.log('Skills response:', data); // Debug
+            setSkills(Array.isArray(data) ? data : data.data || []);
+        })
+        .catch((err) => console.error("Error fetching skills:", err));
+}, []);
 
   return (
     <div className="min-h-screen w-full bg-slate-950 text-white p-0 m-0">
